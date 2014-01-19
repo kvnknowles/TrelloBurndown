@@ -5,3 +5,4 @@ gem "gimme", :group => :test
 
 gem "rake"
 gem "trollop"
+gem "ruby-trello"
