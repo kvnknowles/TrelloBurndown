@@ -9,8 +9,8 @@ describe TrelloExtractor, '#load_board' do
     foo_card = TrelloHelper.build_card_with_size('Foo', 1)
     bar_card = TrelloHelper.build_card_with_size('Bar', 2)
 
-    TrelloWrapper.stub(:get_cards).with('Test Board', 'In Progress').and_return([foo_card, bar_card])
-    TrelloWrapper.stub(:get_cards).with('Test Board', 'Complete').and_return([])
+    TrelloWrapper.stub(:get_cards).with('Test Board', TrelloExtractor::IN_PROGRESS_LIST_NAME).and_return([foo_card, bar_card])
+    TrelloWrapper.stub(:get_cards).with('Test Board', TrelloExtractor::COMPLETE_LIST_NAME).and_return([])
 
     trello = TrelloExtractor.new()
     board = trello.load_board('Test Board')
@@ -21,8 +21,8 @@ describe TrelloExtractor, '#load_board' do
     foo_card = TrelloHelper.build_card_with_size('Foo', 3)
     bar_card = TrelloHelper.build_card_with_size('Bar', 5)
 
-    TrelloWrapper.stub(:get_cards).with('Test Board', 'In Progress').and_return([])
-    TrelloWrapper.stub(:get_cards).with('Test Board', 'Complete').and_return([foo_card, bar_card])
+    TrelloWrapper.stub(:get_cards).with('Test Board', TrelloExtractor::IN_PROGRESS_LIST_NAME).and_return([])
+    TrelloWrapper.stub(:get_cards).with('Test Board', TrelloExtractor::COMPLETE_LIST_NAME).and_return([foo_card, bar_card])
 
     trello = TrelloExtractor.new()
     board = trello.load_board('Test Board')

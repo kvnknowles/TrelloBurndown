@@ -3,9 +3,12 @@ require 'trello_wrapper'
 
 class TrelloExtractor
 
+  IN_PROGRESS_LIST_NAME = 'Doing'
+  COMPLETE_LIST_NAME = 'Done'
+
   def load_board(name)
-    in_progress_cards = TrelloWrapper.get_cards(name, 'In Progress')
-    complete_cards = TrelloWrapper.get_cards(name, 'Complete')
+    in_progress_cards = TrelloWrapper.get_cards(name, IN_PROGRESS_LIST_NAME)
+    complete_cards = TrelloWrapper.get_cards(name, COMPLETE_LIST_NAME)
 
     in_progress_list = load_cards(in_progress_cards)
     complete_list = load_cards(complete_cards)
@@ -18,7 +21,7 @@ class TrelloExtractor
     card_list = Array.new()
     cards.each do |card|
       size = get_size(card.name)
-      card_list.push(Card.new(size))
+      card_list << Card.new(size)
     end
     card_list
   end
