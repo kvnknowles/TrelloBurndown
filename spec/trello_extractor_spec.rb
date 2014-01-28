@@ -54,4 +54,9 @@ describe TrelloExtractor, '#get_size' do
     card = TrelloHelper.build_card('Foo 4 5 2 <3>')
     @trello_extractor.get_size(card.name).should eq 3
   end
+
+  it 'should return 4 when numbers before and after size' do
+    card = TrelloHelper.build_card('Foo 3 2 [4] 23')
+    @trello_extractor.get_size(card.name).should eq 4
+  end
 end

@@ -27,7 +27,7 @@ class TrelloExtractor
   end
 
   def get_size(card_name)
-    match = card_name.match(/.*(\d+)/)
+    match = /[<{\[](\d+)[>}\]]/.match(card_name)
     size = -1
     if match
       size = match[1].to_i
