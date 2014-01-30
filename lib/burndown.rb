@@ -10,7 +10,7 @@ class Burndown
     in_progress_total_size = @board.get_in_progress_total_size
     complete_total_size = @board.get_complete_total_size
 
-    output = '"%s",%d,%d\n' % [Time.now.to_s, in_progress_total_size, complete_total_size]
+    output = '"%s",%d,%d' % [Time.now.to_s, in_progress_total_size, complete_total_size]
     output
   end
 
@@ -20,7 +20,7 @@ class Burndown
       output.push(HEADER)
     end
     output.push(get_current_csv_output)
-    File.open(outputFile, 'w') do |f|
+    File.open(outputFile, 'a') do |f|
       f.puts(output)
     end
   end
