@@ -10,6 +10,7 @@ GEM
     addressable (2.3.5)
     builder (3.0.4)
     diff-lcs (1.2.5)
+    fakefs (0.5.0)
     gimme (0.4.0)
     i18n (0.6.9)
     json (1.8.1)
@@ -39,6 +40,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  fakefs
   gimme
   rake
   rspec
