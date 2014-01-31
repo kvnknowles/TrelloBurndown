@@ -13,17 +13,11 @@ class TrelloExtractor
     in_progress_list = load_cards(in_progress_cards)
     complete_list = load_cards(complete_cards)
 
-    board = Board.new(in_progress_list, complete_list)
-    board
+    Board.new(in_progress_list, complete_list)
   end
 
   def load_cards(cards)
-    card_list = Array.new()
-    cards.each do |card|
-      size = get_size(card.name)
-      card_list << Card.new(size)
-    end
-    card_list
+    cards.map { |card| Card.new(get_size(card.name)) }
   end
 
   def get_size(card_name)
