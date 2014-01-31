@@ -39,9 +39,9 @@ describe TrelloExtractor, '#get_size' do
     trello_extractor.get_size(foo_card.name).should eq 1
   end
 
-  it 'should return -1 when no size in the card name' do
+  it 'should return 0 when no size in the card name' do
     card = TrelloHelper.build_card('foo')
-    trello_extractor.get_size(card.name).should eq -1
+    trello_extractor.get_size(card.name).should eq 0
   end
 
   it 'should return 2 when {2} is in the card name' do
@@ -58,4 +58,5 @@ describe TrelloExtractor, '#get_size' do
     card = TrelloHelper.build_card('Foo 3 2 [4] 23')
     trello_extractor.get_size(card.name).should eq 4
   end
+
 end

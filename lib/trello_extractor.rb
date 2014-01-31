@@ -1,5 +1,5 @@
-require 'board'
-require 'trello_wrapper'
+require_relative 'board'
+require_relative 'trello_wrapper'
 
 class TrelloExtractor
 
@@ -22,7 +22,7 @@ class TrelloExtractor
 
   def get_size(card_name)
     match = /[<{\[](\d+)[>}\]]/.match(card_name)
-    size = -1
+    size = 0
     if match
       size = match[1].to_i
     end
