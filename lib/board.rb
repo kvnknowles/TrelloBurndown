@@ -15,10 +15,6 @@ class Board
   end
 
   def calculate_total_size(card_list)
-    total_size = 0
-    card_list.each do |card|
-      total_size += card.size
-    end
-    total_size
+    card_list.map { |card| card.size }.reduce(0) { |sum, size| sum + size }
   end
 end
