@@ -1,6 +1,6 @@
 require 'trollop'
-require_relative 'trello_extractor'
-require_relative 'burndown'
+require_relative 'lib/trello_extractor'
+require_relative 'lib/burndown'
 
 opts = Trollop::options do
   version = "trello2burndown 0.0.1 (c) 2013 Bogotech Inc"
