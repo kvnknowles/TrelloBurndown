@@ -10,15 +10,12 @@ class Burndown
     in_progress_total_size = @board.get_in_progress_total_size
     complete_total_size = @board.get_complete_total_size
 
-    output = '"%s",%d,%d' % [Time.now.to_s, in_progress_total_size, complete_total_size]
-    output
+    '"%s",%d,%d' % [Time.now.to_s, in_progress_total_size, complete_total_size]
   end
 
   def write_burndown_to_file(outputFile)
     output = []
-    unless File.exists? outputFile
-      output.push(HEADER)
-    end
+    output.push(HEADER) unless File.exists? outputFile
     output.push(get_current_csv_output)
     File.open(outputFile, 'a') do |f|
       f.puts(output)
