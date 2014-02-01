@@ -5,6 +5,7 @@ class TrelloExtractor
 
   IN_PROGRESS_LIST_NAME = 'Doing'
   COMPLETE_LIST_NAME = 'Done'
+  DEFAULT_SIZE = 0
 
   def load_board(name)
     in_progress_cards = TrelloWrapper.get_cards(name, IN_PROGRESS_LIST_NAME)
@@ -21,11 +22,6 @@ class TrelloExtractor
   end
 
   def get_size(card_name)
-    match = /[<{\[](\d+)[>}\]]/.match(card_name)
-    size = 0
-    if match
-      size = match[1].to_i
-    end
-    size
+    (/[<{\[](\d+)[>}\]]/.match(card_name) || DEFAULT_SIZE )[1].to_i
   end
 end
