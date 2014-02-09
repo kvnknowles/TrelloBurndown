@@ -1,13 +1,13 @@
 require 'rspec'
 require 'spec_helper'
   
-describe Burndown, "#get_current_csv_output" do
+describe Burndown, '#get_current_csv_output' do
 
   let(:in_progress_card) { Card.new(1) }
   let(:completed_card) { Card.new(1) }
   let(:board) { Board.new([in_progress_card], [completed_card]) }
   let(:mock_time) {
-    @time_now = Time.parse("Jan 18 2014 00:00:00 -0600")
+    @time_now = Time.parse('Jan 18 2014 00:00:00 -0600')
     Time.stub(:now).and_return(@time_now)
     mock_time = Time.now
   }
@@ -18,18 +18,18 @@ describe Burndown, "#get_current_csv_output" do
   end
 end
 
-describe Burndown, "#write_burndown_to_file", fakefs: true do
+describe Burndown, '#write_burndown_to_file', fakefs: true do
 
   let(:in_progress_card) { Card.new(1) }
   let(:completed_card) { Card.new(1) }
   let(:board) { Board.new([in_progress_card], [completed_card]) }
   let(:empty_board) { Board.new([],[]) } 
   let(:mock_time) {
-    @time_now = Time.parse("Jan 18 2014 00:00:00 -0600")
+    @time_now = Time.parse('Jan 18 2014 00:00:00 -0600')
     Time.stub(:now).and_return(@time_now)
     mock_time = Time.now
   }
-  let(:burndown_file) { "out.csv" }
+  let(:burndown_file) { 'out.csv' }
 
   it 'will write the header if output file does not exist' do
     Burndown.new(empty_board).write_burndown_to_file(burndown_file)
@@ -49,8 +49,8 @@ describe Burndown, "#write_burndown_to_file", fakefs: true do
   end
 
   it 'will append current csv output to end of existing file' do
-    File.open("out.csv", 'w') do |f|
-      f.puts("Initial")
+    File.open('out.csv', 'w') do |f|
+      f.puts('Initial')
     end
     expected_output = "Initial\n\"%s\",%d,%d\n" % [mock_time, 1,1]
     Burndown.new(board).write_burndown_to_file(burndown_file)

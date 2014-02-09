@@ -1,7 +1,7 @@
 require 'rspec'
 require 'spec_helper'
 
-describe Board, "#get_in_progress_total_size" do
+describe Board, '#get_in_progress_total_size' do
 
   let(:empty_board) { Board.new([], []) }
   let(:in_progress_card) { Card.new(1) }
@@ -21,7 +21,7 @@ describe Board, "#get_in_progress_total_size" do
   end
 end
 
-describe Board, "#get_complete_total_size" do
+describe Board, '#get_complete_total_size' do
 
   let(:empty_board) { Board.new([], []) }
   let(:complete_card) { Card.new(2) }
