@@ -71,7 +71,7 @@ describe TrelloExtractor, '#get_size' do
     size_hash['S'] = 3
     SettingsLoader.stub(:load_sizes).and_return(size_hash)
     trello_extractor = TrelloExtractor.new()
-    trello_extractor.get_size(card.name).should eq 0
+    trello_extractor.get_size(card.name).should eq 1
   end
 
 end

@@ -4,16 +4,13 @@ require_relative 'settings_loader'
 
 class TrelloExtractor
 
-  def initialize(settings_file = '')
-    @sizes = SettingsLoader.load_sizes(settings_file)
-    if @sizes
-      @sizes.default = DEFAULT_SIZE
-    end
-  end
-
   IN_PROGRESS_LIST_NAME = 'Doing'
   COMPLETE_LIST_NAME = 'Done'
   DEFAULT_SIZE = 0
+
+  def initialize(settings_file = '')
+    @sizes = SettingsLoader.load_sizes(settings_file)
+  end
 
   def load_board(name)
     in_progress_cards = TrelloWrapper.get_cards(name, IN_PROGRESS_LIST_NAME)
