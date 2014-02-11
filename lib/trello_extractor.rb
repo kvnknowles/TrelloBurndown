@@ -1,7 +1,15 @@
 require_relative 'board'
 require_relative 'trello_wrapper'
+require_relative 'settings_loader'
 
 class TrelloExtractor
+
+  def initialize(settings_file = '')
+    @sizes = SettingsLoader.load_sizes(settings_file)
+    if @sizes
+      @sizes.default = DEFAULT_SIZE
+    end
+  end
 
   IN_PROGRESS_LIST_NAME = 'Doing'
   COMPLETE_LIST_NAME = 'Done'
@@ -22,6 +30,12 @@ class TrelloExtractor
   end
 
   def get_size(card_name)
-    (/[<{\[](\d+)[>}\]]/.match(card_name) || DEFAULT_SIZE )[1].to_i
+    if @sizes
+      size_key = /[<{\[](.+)[>}\]]/.match(card_name)[1]
+      size = @sizes[size_key]
+    else
+      size = (/[<{\[](\d+)[>}\]]/.match(card_name) || DEFAULT_SIZE )[1].to_i
+    end
+    size
   end
 end

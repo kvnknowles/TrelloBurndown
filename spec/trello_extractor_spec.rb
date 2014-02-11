@@ -39,7 +39,7 @@ describe TrelloExtractor, '#get_size' do
     trello_extractor.get_size(foo_card.name).should eq 1
   end
 
-  it 'should return 0 when no size in the card name' do
+  it 'should return default size when no size in the card name' do
     card = TrelloHelper.build_card('foo')
     trello_extractor.get_size(card.name).should eq 0
   end
@@ -57,6 +57,21 @@ describe TrelloExtractor, '#get_size' do
   it 'should return 4 when numbers before and after size' do
     card = TrelloHelper.build_card('Foo 3 2 [4] 23')
     trello_extractor.get_size(card.name).should eq 4
+  end
+
+  it 'should return correct size if sizes has a match' do
+    card = TrelloHelper.build_card('Foo <S>')
+    trello_extractor.instance_variable_set('@sizes', {'S' => 3})
+    trello_extractor.get_size(card.name).should eq 3
+  end
+
+  it 'should return default size if sizes exist but does not match' do
+    card = TrelloHelper.build_card('Bar <L>')
+    size_hash = Hash.new(1)
+    size_hash['S'] = 3
+    SettingsLoader.stub(:load_sizes).and_return(size_hash)
+    trello_extractor = TrelloExtractor.new()
+    trello_extractor.get_size(card.name).should eq 0
   end
 
 end

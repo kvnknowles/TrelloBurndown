@@ -13,7 +13,8 @@ where [options] are:
   EOS
   opt :board_name, 'Board Name', :type => String, :required => true
   opt :output_file, 'Output File', :type => String, :default => 'out.csv'
+  opt :settings_file, 'Settings File', :type => String, :default => ''
 end
 
-board = TrelloExtractor.new().load_board(opts[:board_name])
+board = TrelloExtractor.new(opts[:settings_file]).load_board(opts[:board_name])
 Burndown.new(board).write_burndown_to_file(opts[:output_file])
