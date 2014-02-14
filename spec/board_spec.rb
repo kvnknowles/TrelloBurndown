@@ -4,6 +4,9 @@ require 'spec_helper'
 
 describe Board, '#initialize' do
 
+  let(:two_point_in_progress_card) { Card.new(2,:in_progress) }
+  let(:two_point_completed_card) { Card.new(2,:complete) }
+
   it 'will accept a single list of cards' do
     expect{ Board.new([]) }.not_to raise_error
   end
@@ -11,15 +14,15 @@ describe Board, '#initialize' do
   describe 'will place the given cards in the correct lists' do
 
     it 'will put in_progress cards in the in_progress list' do
-      Board.new([Card.new(2, :in_progress)]).get_in_progress_total_size.should eq 2
+      Board.new([two_point_in_progress_card]).get_in_progress_total_size.should eq 2
     end
 
     it 'will put completed cards in the completed list' do
-      Board.new([Card.new(2, :complete)]).get_complete_total_size.should eq 2
+      Board.new([two_point_completed_card]).get_complete_total_size.should eq 2
     end
 
     it 'will put a mix of cards in the correct lists' do
-      board = Board.new([Card.new(2, :complete),Card.new(2, :in_progress)])
+      board = Board.new([two_point_completed_card,two_point_in_progress_card])
       board.get_complete_total_size.should eq 2
       board.get_in_progress_total_size.should eq 2
       board.get_total_size.should eq 4
@@ -39,14 +42,14 @@ describe Board, '#initialize' do
     end
 
     it 'will place the the cards in the expected buckets' do
-      board = Board.new([Card.new(2, :in_progress)],[Card.new(2, :complete)])
+      board = Board.new([two_point_in_progress_card],[two_point_completed_card])
       board.get_complete_total_size.should eq 2
       board.get_in_progress_total_size.should eq 2
       board.get_total_size.should eq 4
     end
 
     it 'will place the cards in the correct buckets' do
-      board = Board.new([Card.new(2, :complete)],[Card.new(2, :in_progress)])
+      board = Board.new([two_point_completed_card],[two_point_in_progress_card])
       board.get_complete_total_size.should eq 2
       board.get_in_progress_total_size.should eq 2
       board.get_total_size.should eq 4
