@@ -1,7 +1,7 @@
 require_relative 'card'
 
 class Board
-  def initialize(in_progress, complete = [])
+  def initialize(in_progress = [], complete = [])
     @cards = Hash.new { |hash,key| hash[key] = [] }
     in_progress.each { |card| @cards[card.list] << card }
     complete.each { |card| @cards[card.list] << card }
