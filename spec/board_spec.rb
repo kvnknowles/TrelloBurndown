@@ -16,9 +16,9 @@ describe Board, '#initialize' do
     end
 
     it 'should accept two lists' do
-      expect{ Board.new([],[]) }.to_not raise_error(ArgumentError)
+      expect{ Board.new([],[]) }.not_to raise_error
     end
-    
+
   end
 
 end
