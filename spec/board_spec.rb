@@ -1,6 +1,28 @@
 require 'rspec'
 require 'spec_helper'
 
+
+describe Board, '#initialize' do
+
+  #characterize
+  describe 'it takes two lists, in_progress and complete' do
+
+    it 'should not accept only one list' do
+      expect{ Board.new([]) }.to raise_error(ArgumentError)
+    end
+
+    it 'should not accept three lists' do
+      expect{ Board.new([], [], []) }.to raise_error(ArgumentError)
+    end
+
+    it 'should accept two lists' do
+      expect{ Board.new([],[]) }.to_not raise_error(ArgumentError)
+    end
+    
+  end
+
+end
+
 describe Board, '#get_in_progress_total_size' do
 
   let(:empty_board) { Board.new([], []) }
