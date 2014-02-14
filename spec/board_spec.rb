@@ -83,33 +83,38 @@ end
 describe Board, '#get_total_size' do
 
   let(:empty_board) { Board.new }
+  let(:one_point_backlog_card) { Card.new(1,:backlog) }
+  let(:ten_point_backlog_card) { Card.new(10,:backlog) }
+  let(:one_point_complete_card) { Card.new(1,:complete) }
+  let(:three_point_in_progress_card) { Card.new(3,:in_progress) }
+  let(:five_point_backlog_card) { Card.new(5,:backlog) }
 
   it 'should return 0 if no cards on board' do
     empty_board.get_total_size.should eq 0
   end
 
   it 'should return 1 if one card with size of 1' do
-    Board.new([Card.new(1,:some_column)]).get_total_size.should eq 1
+    Board.new([one_point_backlog_card]).get_total_size.should eq 1
   end
 
   it 'should return 10 if one card with size of 10' do
-    Board.new([Card.new(10,:some_column)]).get_total_size.should eq 10
+    Board.new([ten_point_backlog_card]).get_total_size.should eq 10
   end
 
   it 'should return 2 if two cards with size of 1 each' do
-    Board.new([Card.new(1,:some_column),Card.new(1,:complete)]).get_total_size.should eq 2
+    Board.new([one_point_backlog_card,one_point_complete_card]).get_total_size.should eq 2
   end
 
   it 'should return 8 if two cards with size of 3 and 5' do
-    Board.new([Card.new(3,:in_progress),Card.new(5,:some_column)]).get_total_size.should eq 8
+    Board.new([three_point_in_progress_card,five_point_backlog_card]).get_total_size.should eq 8
   end
 
   it 'should still know about in_progress' do
-    Board.new([Card.new(3,:in_progress),Card.new(5,:some_column)]).get_in_progress_total_size.should eq 3
+    Board.new([three_point_in_progress_card,five_point_backlog_card]).get_in_progress_total_size.should eq 3
   end
 
   it 'should still know about complte' do
-    Board.new([Card.new(1,:some_column),Card.new(1,:complete)]).get_complete_total_size.should eq 1
+    Board.new([one_point_backlog_card,one_point_complete_card]).get_complete_total_size.should eq 1
   end
 
 end
