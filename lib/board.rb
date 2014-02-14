@@ -1,7 +1,7 @@
 require_relative 'card'
 
 class Board
-  def initialize(in_progress, complete)
+  def initialize(in_progress, complete = [])
     @in_progress = in_progress
     @complete = complete
   end

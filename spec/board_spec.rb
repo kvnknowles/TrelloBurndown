@@ -4,12 +4,16 @@ require 'spec_helper'
 
 describe Board, '#initialize' do
 
+  it 'will accept a single list of cards' do
+    expect{ Board.new([]) }.not_to raise_error
+  end
+
   #characterize
   describe 'takes two lists, in_progress and complete' do
 
-    it 'should not accept only one list' do
-      expect{ Board.new([]) }.to raise_error(ArgumentError)
-    end
+#    it 'should not accept only one list' do
+#      expect{ Board.new([]) }.to raise_error(ArgumentError)
+#    end
 
     it 'should not accept three lists' do
       expect{ Board.new([], [], []) }.to raise_error(ArgumentError)
