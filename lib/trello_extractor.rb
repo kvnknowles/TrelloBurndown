@@ -19,7 +19,7 @@ class TrelloExtractor
     in_progress_list = load_cards(in_progress_cards,:in_progress)
     complete_list = load_cards(complete_cards,:complete)
 
-    Board.new(in_progress_list, complete_list)
+    Board.new(in_progress_list + complete_list)
   end
 
   def load_cards(cards,list)
