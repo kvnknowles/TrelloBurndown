@@ -1,10 +1,9 @@
 require_relative 'card'
 
 class Board
-  def initialize(in_progress = [], complete = [])
+  def initialize(card_list = [])
     @cards = Hash.new { |hash,key| hash[key] = [] }
-    in_progress.each { |card| @cards[card.list] << card }
-    complete.each { |card| @cards[card.list] << card }
+    card_list.each { |card| @cards[card.list] << card }
   end
 
   def get_in_progress_total_size

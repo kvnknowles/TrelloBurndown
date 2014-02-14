@@ -23,7 +23,7 @@ describe Burndown, '#write_burndown_to_file', fakefs: true do
   let(:in_progress_card) { Card.new(1,:in_progress) }
   let(:completed_card) { Card.new(1,:complete) }
   let(:board) { Board.new([in_progress_card, completed_card]) }
-  let(:empty_board) { Board.new([],[]) } 
+  let(:empty_board) { Board.new } 
   let(:mock_time) {
     @time_now = Time.parse('Jan 18 2014 00:00:00 -0600')
     Time.stub(:now).and_return(@time_now)

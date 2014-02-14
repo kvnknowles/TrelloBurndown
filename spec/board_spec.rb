@@ -7,6 +7,11 @@ describe Board, '#initialize' do
   let(:two_point_in_progress_card) { Card.new(2,:in_progress) }
   let(:two_point_completed_card) { Card.new(2,:complete) }
 
+
+  it 'should accept zero arguments' do
+    expect{ Board.new }.not_to raise_error
+  end
+  
   it 'will accept a single list of cards' do
     expect{ Board.new([]) }.not_to raise_error
   end
@@ -30,31 +35,8 @@ describe Board, '#initialize' do
 
   end
 
-  #characterize
-  describe 'takes two lists, in_progress and complete' do
-
-    it 'should not accept three lists' do
-      expect{ Board.new([], [], []) }.to raise_error(ArgumentError)
-    end
-
-    it 'should accept two lists' do
-      expect{ Board.new([],[]) }.not_to raise_error
-    end
-
-    it 'will place the the cards in the expected buckets' do
-      board = Board.new([two_point_in_progress_card],[two_point_completed_card])
-      board.get_complete_total_size.should eq 2
-      board.get_in_progress_total_size.should eq 2
-      board.get_total_size.should eq 4
-    end
-
-    it 'will place the cards in the correct buckets' do
-      board = Board.new([two_point_completed_card],[two_point_in_progress_card])
-      board.get_complete_total_size.should eq 2
-      board.get_in_progress_total_size.should eq 2
-      board.get_total_size.should eq 4
-    end
-
+  it 'should not accept two lists' do
+    expect{ Board.new([], []) }.to raise_error(ArgumentError)
   end
 
 end
@@ -90,11 +72,11 @@ describe Board, '#get_complete_total_size' do
   end
 
   it 'should return 2 if one card in progress with size of 2' do
-    Board.new(in_progress_cards, [complete_card]).get_complete_total_size.should eq 2
+    Board.new(in_progress_cards + [complete_card]).get_complete_total_size.should eq 2
   end
 
   it 'should return 6 if three cards in progress with size of 2' do
-    Board.new(in_progress_cards, completed_cards).get_complete_total_size.should eq 6
+    Board.new(in_progress_cards + completed_cards).get_complete_total_size.should eq 6
   end
 end
 
