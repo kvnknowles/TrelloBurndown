@@ -8,6 +8,22 @@ describe Board, '#initialize' do
     expect{ Board.new([]) }.not_to raise_error
   end
 
+  describe 'will place the given cards in the correct lists' do
+
+    it 'will put in_progress cards in the in_progress list' do
+      Board.new([Card.new(2, :in_progress)]).get_in_progress_total_size.should eq 2
+    end
+
+    it 'will put completed cards in the completed list' do
+      Board.new([Card.new(2, :complete)]).get_complete_total_size.should eq 2
+    end
+
+    it 'will put a mix of cards in the correct lists' do
+      pending
+    end
+
+  end
+
   #characterize
   describe 'takes two lists, in_progress and complete' do
 
@@ -30,7 +46,7 @@ end
 describe Board, '#get_in_progress_total_size' do
 
   let(:empty_board) { Board.new([], []) }
-  let(:in_progress_card) { Card.new(1) }
+  let(:in_progress_card) { Card.new(1, :in_progress) }
   let(:in_progress_cards) { [in_progress_card, in_progress_card, in_progress_card] }
   let(:completed_cards) { [] }
 
@@ -50,7 +66,7 @@ end
 describe Board, '#get_complete_total_size' do
 
   let(:empty_board) { Board.new([], []) }
-  let(:complete_card) { Card.new(2) }
+  let(:complete_card) { Card.new(2, :complete) }
   let(:in_progress_cards) { [] }
   let(:completed_cards) { [complete_card, complete_card, complete_card] }
 
@@ -76,19 +92,19 @@ describe Board, '#get_total_size' do
   end
 
   it 'should return 1 if one card with size of 1' do
-    Board.new([Card.new(1)],[]).get_total_size.should eq 1
+    Board.new([Card.new(1,:in_progress)],[]).get_total_size.should eq 1
   end
 
   it 'should return 10 if one card with size of 10' do
-    Board.new([],[Card.new(10)]).get_total_size.should eq 10
+    Board.new([],[Card.new(10,:complete)]).get_total_size.should eq 10
   end
 
   it 'should return 2 if two cards with size of 1 each' do
-    Board.new([Card.new(1)],[Card.new(1)]).get_total_size.should eq 2
+    Board.new([Card.new(1,:in_progress)],[Card.new(1,:complete)]).get_total_size.should eq 2
   end
 
   it 'should return 8 if two cards with size of 3 and 5' do
-    Board.new([Card.new(3)],[Card.new(5)]).get_total_size.should eq 8
+    Board.new([Card.new(3,:in_progress)],[Card.new(5,:complete)]).get_total_size.should eq 8
   end
 
 end

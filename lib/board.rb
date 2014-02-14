@@ -2,20 +2,22 @@ require_relative 'card'
 
 class Board
   def initialize(in_progress, complete = [])
-    @in_progress = in_progress
-    @complete = complete
+    @cards = Hash.new { |hash,key| hash[key] = [] }
+    in_progress.each { |card| @cards[card.list] << card }
+    complete.each { |card| @cards[card.list] << card }
   end
 
   def get_in_progress_total_size
-    calculate_total_size(@in_progress)
+    calculate_total_size(@cards[:in_progress])
   end
 
   def get_complete_total_size
-    calculate_total_size(@complete)
+    calculate_total_size(@cards[:complete])
   end
 
   def get_total_size
-    calculate_total_size(@in_progress + @complete)
+    calculate_total_size(@cards[:in_progress] + @cards[:complete])
+    #@cards.values.flatten ?
   end
 
   def calculate_total_size(card_list)

@@ -16,14 +16,14 @@ class TrelloExtractor
     in_progress_cards = TrelloWrapper.get_cards(name, IN_PROGRESS_LIST_NAME)
     complete_cards = TrelloWrapper.get_cards(name, COMPLETE_LIST_NAME)
 
-    in_progress_list = load_cards(in_progress_cards)
-    complete_list = load_cards(complete_cards)
+    in_progress_list = load_cards(in_progress_cards,:in_progress)
+    complete_list = load_cards(complete_cards,:complete)
 
     Board.new(in_progress_list, complete_list)
   end
 
-  def load_cards(cards)
-    cards.map { |card| Card.new(get_size(card.name)) }
+  def load_cards(cards,list)
+    cards.map { |card| Card.new(get_size(card.name),list) }
   end
 
   def get_size(card_name)
