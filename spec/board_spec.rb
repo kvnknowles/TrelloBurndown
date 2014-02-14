@@ -19,7 +19,10 @@ describe Board, '#initialize' do
     end
 
     it 'will put a mix of cards in the correct lists' do
-      pending
+      board = Board.new([Card.new(2, :complete),Card.new(2, :in_progress)])
+      board.get_complete_total_size.should eq 2
+      board.get_in_progress_total_size.should eq 2
+      board.get_total_size.should eq 4
     end
 
   end

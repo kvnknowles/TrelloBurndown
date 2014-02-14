@@ -16,8 +16,7 @@ class Board
   end
 
   def get_total_size
-    calculate_total_size(@cards[:in_progress] + @cards[:complete])
-    #@cards.values.flatten ?
+    calculate_total_size(@cards.values.flatten)
   end
 
   def calculate_total_size(card_list)
