@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Board, '#initialize' do
 
   #characterize
-  describe 'it takes two lists, in_progress and complete' do
+  describe 'takes two lists, in_progress and complete' do
 
     it 'should not accept only one list' do
       expect{ Board.new([]) }.to raise_error(ArgumentError)
