@@ -40,3 +40,29 @@ describe Board, '#get_complete_total_size' do
     Board.new(in_progress_cards, completed_cards).get_complete_total_size.should eq 6
   end
 end
+
+describe Board, '#get_total_size' do
+
+  let(:empty_board) { Board.new([], []) }
+
+  it 'should return 0 if no cards on board' do
+    empty_board.get_total_size.should eq 0
+  end
+
+  it 'should return 1 if one card with size of 1' do
+    Board.new([Card.new(1)],[]).get_total_size.should eq 1
+  end
+
+  it 'should return 10 if one card with size of 10' do
+    Board.new([],[Card.new(10)]).get_total_size.should eq 10
+  end
+
+  it 'should return 2 if two cards with size of 1 each' do
+    Board.new([Card.new(1)],[Card.new(1)]).get_total_size.should eq 2
+  end
+
+  it 'should return 8 if two cards with size of 3 and 5' do
+    Board.new([Card.new(3)],[Card.new(5)]).get_total_size.should eq 8
+  end
+
+end

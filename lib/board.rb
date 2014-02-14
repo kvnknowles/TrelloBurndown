@@ -14,6 +14,10 @@ class Board
     calculate_total_size(@complete)
   end
 
+  def get_total_size
+    calculate_total_size(@in_progress + @complete)
+  end
+
   def calculate_total_size(card_list)
     card_list.map(&:size).reduce(0, &:'+')
   end
