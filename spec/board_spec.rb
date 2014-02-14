@@ -89,19 +89,27 @@ describe Board, '#get_total_size' do
   end
 
   it 'should return 1 if one card with size of 1' do
-    Board.new([Card.new(1,:in_progress)]).get_total_size.should eq 1
+    Board.new([Card.new(1,:some_column)]).get_total_size.should eq 1
   end
 
   it 'should return 10 if one card with size of 10' do
-    Board.new([Card.new(10,:complete)]).get_total_size.should eq 10
+    Board.new([Card.new(10,:some_column)]).get_total_size.should eq 10
   end
 
   it 'should return 2 if two cards with size of 1 each' do
-    Board.new([Card.new(1,:in_progress),Card.new(1,:complete)]).get_total_size.should eq 2
+    Board.new([Card.new(1,:some_column),Card.new(1,:complete)]).get_total_size.should eq 2
   end
 
   it 'should return 8 if two cards with size of 3 and 5' do
-    Board.new([Card.new(3,:in_progress),Card.new(5,:complete)]).get_total_size.should eq 8
+    Board.new([Card.new(3,:in_progress),Card.new(5,:some_column)]).get_total_size.should eq 8
+  end
+
+  it 'should still know about in_progress' do
+    Board.new([Card.new(3,:in_progress),Card.new(5,:some_column)]).get_in_progress_total_size.should eq 3
+  end
+
+  it 'should still know about complte' do
+    Board.new([Card.new(1,:some_column),Card.new(1,:complete)]).get_complete_total_size.should eq 1
   end
 
 end
