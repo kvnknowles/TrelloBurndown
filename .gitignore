@@ -20,3 +20,12 @@ doc/
 
 # RubyMine
 .idea
+
+#code_swarm
+.code_swarm/
+activity.log
+activity.xml
+code_swarm.config
+code_swarm_video.sh
+frames/
+code_swarm.mov
