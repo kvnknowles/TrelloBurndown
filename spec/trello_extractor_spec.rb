@@ -6,15 +6,14 @@ require 'trello_helper'
 describe TrelloExtractor, '#load_board' do
 
   it 'should load all of the in progress cards' do
-    foo_card = TrelloHelper.build_card_with_size('Foo', 1)
-    bar_card = TrelloHelper.build_card_with_size('Bar', 2)
+    foo_card = TrelloHelper.build_card_with_size('Foo', "S")
+    bar_card = TrelloHelper.build_card_with_size('Bar', "M")
 
     TrelloWrapper.stub(:get_cards).with('Test Board', TrelloExtractor::IN_PROGRESS_LIST_NAME).and_return([foo_card, bar_card])
     TrelloWrapper.stub(:get_cards).with('Test Board', TrelloExtractor::COMPLETE_LIST_NAME).and_return([])
 
-    trello = TrelloExtractor.new()
-    board = trello.load_board('Test Board')
-    board.get_in_progress_total_size.should eq 3
+    board = TrelloExtractor.new().load_board('Test Board')
+    board.get_in_progress_total_size.should eq 4
   end
 
   it 'should load all of the complete cards' do
@@ -32,8 +31,8 @@ end
 
 describe TrelloExtractor, '#get_size' do
   
-  let(:default_size) { 100 }
-  let(:settings) { Hash['sizes',Hash['default', default_size]] }
+  let(:default_size) { 0 } #ideally we could inject this into the settings to prove it gets used
+  let(:settings) { Hash['sizes',Hash[:default, default_size]] }
   let(:settings_file_name) { 'settings.yml' }
   let(:trello_extractor) { TrelloExtractor.new(settings_file_name) }
 
@@ -65,7 +64,7 @@ describe TrelloExtractor, '#get_size' do
 
   it 'should return correct size if sizes has a match' do
     card = TrelloHelper.build_card('Foo <S>')
-    trello_extractor.instance_variable_set('@sizes', {'S' => 3})
+    trello_extractor.instance_variable_set('@sizes', {:S => 3})
     trello_extractor.get_size(card.name).should eq 3
   end
 

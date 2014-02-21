@@ -1,7 +1,7 @@
 class TrelloHelper
   def self.build_card_with_size(name, size)
     trello_card = Trello::Card.new()
-    trello_card.name = '%s [%d]' % [name, size]
+    trello_card.name = '%s [%s]' % [name, size]
     trello_card
   end
 
