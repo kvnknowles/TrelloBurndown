@@ -32,6 +32,7 @@ end
 
 describe TrelloExtractor, '#get_size' do
   
+  let(:default_size) { 100 }
   let(:settings_file_name) { 'settings.yml' }
   let(:trello_extractor) { TrelloExtractor.new(settings_file_name) }
 
@@ -42,11 +43,11 @@ describe TrelloExtractor, '#get_size' do
 
   it 'should return default size when no size in the card name' do
     parsed_yaml = {
-        'sizes' => Hash['default', 100]
+        'sizes' => Hash['default', default_size]
     }
     YAML.should_receive(:load_file).with(settings_file_name).and_return parsed_yaml
     card = TrelloHelper.build_card('foo')
-    trello_extractor.get_size(card.name).should eq 100
+    trello_extractor.get_size(card.name).should eq default_size
   end
 
   it 'should return 2 when {2} is in the card name' do
