@@ -28,8 +28,13 @@ class TrelloExtractor
 
   def get_size(card_name)
     if @sizes
-      size_key = /[<{\[](.+)[>}\]]/.match(card_name)[1]
-      size = @sizes[size_key]
+      begin
+        size_key = /[<{\[](.+)[>}\]]/.match(card_name)[1]
+        size = @sizes[size_key]  
+      rescue Exception => e
+        size = @sizes["default"]
+      end
+      
     else
       size = (/[<{\[](\d+)[>}\]]/.match(card_name) || DEFAULT_SIZE )[1].to_i
     end
