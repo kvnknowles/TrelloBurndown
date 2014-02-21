@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'rake'
-
+require 'churn'
 begin
 end
 
