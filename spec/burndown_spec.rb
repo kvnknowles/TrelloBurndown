@@ -13,7 +13,7 @@ describe Burndown, '#get_current_csv_output' do
   }
 
   it 'populated board should output csv burndown' do
-    expected_output = '"%s",%d,%d' % [mock_time, 1,1]
+    expected_output = [ mock_time.to_s , 1, 1]
     Burndown.new(board).get_current_csv_output.should eq expected_output
   end
 end
@@ -33,17 +33,17 @@ describe Burndown, '#write_burndown_to_file', fakefs: true do
 
   it 'will write the header if output file does not exist' do
     Burndown.new(empty_board).write_burndown_to_file(burndown_file)
-    File.read(burndown_file).should start_with '"Reported","Doing","Done"'
+    File.read(burndown_file).should start_with 'Reported,Doing,Done'
   end
 
   it 'will not write the header if output file exists' do
     FileUtils.touch(burndown_file)
     Burndown.new(empty_board).write_burndown_to_file(burndown_file)
-    File.read(burndown_file).should_not start_with '"Reported","Doing","Done"'
+    File.read(burndown_file).should_not start_with 'Reported,Doing,Done'
   end
 
   it 'will write the current csv output' do
-    expected_output = '"%s",%d,%d' % [mock_time, 1,1]
+    expected_output = '%s,%d,%d' % [mock_time, 1,1]
     Burndown.new(board).write_burndown_to_file(burndown_file)
     File.read(burndown_file).should include expected_output
   end
@@ -52,7 +52,7 @@ describe Burndown, '#write_burndown_to_file', fakefs: true do
     File.open('out.csv', 'w') do |f|
       f.puts('Initial')
     end
-    expected_output = "Initial\n\"%s\",%d,%d\n" % [mock_time, 1,1]
+    expected_output = "Initial\n%s,%d,%d\n" % [mock_time, 1,1]
     Burndown.new(board).write_burndown_to_file(burndown_file)
     File.read(burndown_file).should eq expected_output
   end

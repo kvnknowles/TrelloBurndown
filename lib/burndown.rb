@@ -1,6 +1,8 @@
+require "CSV"
+
 class Burndown
 
-  HEADER = '"Reported","Doing","Done"'
+  HEADER = ["Reported","Doing","Done"]
 
   def initialize(board)
     @board = board
@@ -10,15 +12,14 @@ class Burndown
     in_progress_total_size = @board.get_in_progress_total_size
     complete_total_size = @board.get_complete_total_size
 
-    '"%s",%d,%d' % [Time.now.to_s, in_progress_total_size, complete_total_size]
+    [Time.now.to_s, in_progress_total_size, complete_total_size]
   end
 
   def write_burndown_to_file(outputFile)
-    output = []
-    output.push(HEADER) unless File.exists? outputFile
-    output.push(get_current_csv_output)
-    File.open(outputFile, 'a') do |f|
-      f.puts(output)
+    output_file_exists = File.exists? outputFile
+    CSV.open(outputFile, 'a') do |csv|
+      csv << HEADER unless output_file_exists
+      csv << get_current_csv_output
     end
   end
 
