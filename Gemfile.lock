@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    ZenTest (4.9.5)
     activemodel (3.2.17)
       activesupport (= 3.2.17)
       builder (~> 3.0.0)
@@ -9,6 +10,8 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.5)
     arrayfields (4.9.2)
+    autotest (4.4.6)
+      ZenTest (>= 4.4.1)
     builder (3.0.4)
     chronic (0.10.2)
     churn (0.0.35)
@@ -70,6 +73,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autotest
   churn
   fakefs
   gimme
